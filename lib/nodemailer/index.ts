@@ -103,7 +103,5 @@ export async function sendEmail(emailContent: EmailContent, sendTo: string[]) {
     if (err) {
       return console.error(err)
     }
-
-    console.log(`Email sent: ${info.response}`)
   })
 }
