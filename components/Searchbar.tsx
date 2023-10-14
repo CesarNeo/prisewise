@@ -2,11 +2,13 @@
 
 import { scrapeAndStoreProduct } from '@/lib/actions'
 import { isValidAmazonProductURL } from '@/utils'
+import { useRouter } from 'next/navigation'
 import { ElementRef, FormEvent, useRef, useState } from 'react'
 
 function Searchbar() {
   const searchPromptRef = useRef<ElementRef<'input'>>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -16,6 +18,10 @@ function Searchbar() {
 
     const isValidLink = isValidAmazonProductURL(searchPrompt)
 
+    if (typeof isValidLink === 'string') {
+      return alert(isValidLink)
+    }
+
     if (!isValidLink) {
       return alert('Por favor, forneça um link de produto Amazon válido')
     }
@@ -23,9 +29,9 @@ function Searchbar() {
     try {
       setIsLoading(true)
 
-      await scrapeAndStoreProduct(searchPrompt)
+      const product = await scrapeAndStoreProduct(searchPrompt)
 
-      setIsLoading(false)
+      return router.push(`/products/${product._id}`)
     } catch (error) {
       console.error(error)
     } finally {

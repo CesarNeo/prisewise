@@ -23,8 +23,10 @@ function ProductCard({ product }: Props) {
       <div className="flex flex-col gap-3">
         <h3 className="product-title">{product.title}</h3>
 
-        <div className="flex justify-between">
-          <p className="text-black/50 text-lg capitalize">{product.category}</p>
+        <div className="flex justify-between gap-2">
+          <p className="text-black/50 text-lg capitalize truncate">
+            {product.category}
+          </p>
 
           <p className="text-lg text-black font-semibold">
             <span>{product?.currency}</span>
