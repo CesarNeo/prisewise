@@ -28,41 +28,30 @@ export function isValidAmazonProductURL(url: string) {
   return false
 }
 
-// Extracts and returns the price from a list of possible elements.
 export function extractPrice(...elements: any) {
   for (const element of elements) {
     const priceText = element.text().trim()
 
     if (priceText) {
-      const cleanPrice = priceText.replace(/[^\d.]/g, '')
+      const valueInCents =
+        parseFloat(
+          priceText.replace('R$', '').replace(/\./g, '').replace(',', '.')
+        ) * 100
 
-      let firstPrice
-
-      if (cleanPrice) {
-        firstPrice = cleanPrice.match(/\d+\.\d{2}/)?.[0]
-      }
-
-      return firstPrice || cleanPrice
+      return valueInCents || 0
     }
   }
 
   return ''
 }
 
-// Extracts and returns the currency symbol from an element.
 export function extractCurrency(element: any) {
-  const currencyText = element.text().trim().slice(0, 1)
+  const currencyText = element.text().trim().slice(0, 2)
   return currencyText ? currencyText : ''
 }
 
-// Extracts description from two possible elements from amazon
 export function extractDescription($: any) {
-  // these are possible elements holding description of the product
-  const selectors = [
-    '.a-unordered-list .a-list-item',
-    '.a-expander-content p'
-    // Add more selectors here if needed
-  ]
+  const selectors = ['.a-unordered-list .a-list-item', '.a-expander-content p']
 
   for (const selector of selectors) {
     const elements = $(selector)
@@ -75,30 +64,34 @@ export function extractDescription($: any) {
     }
   }
 
-  // If no matching elements were found, return an empty string
   return ''
 }
 
-export function getHighestPrice(priceList: PriceHistoryItem[]) {
-  let highestPrice = priceList[0]
+export function extractStars($: any) {
+  const stars = $('#acrPopover').attr('title')
+  return stars ? parseFloat(stars.split(' ')[0]) : 0
+}
 
-  for (let i = 0; i < priceList.length; i++) {
-    if (priceList[i].price > highestPrice.price) {
-      highestPrice = priceList[i]
+export function getHighestPrice(priceList: PriceHistoryItem[]) {
+  const highestPrice = priceList.reduce((acc, curr) => {
+    if (curr.price > acc.price) {
+      return curr
     }
-  }
+
+    return acc
+  }, priceList[0])
 
   return highestPrice.price
 }
 
 export function getLowestPrice(priceList: PriceHistoryItem[]) {
-  let lowestPrice = priceList[0]
-
-  for (let i = 0; i < priceList.length; i++) {
-    if (priceList[i].price < lowestPrice.price) {
-      lowestPrice = priceList[i]
+  const lowestPrice = priceList.reduce((acc, curr) => {
+    if (curr.price < acc.price) {
+      return curr
     }
-  }
+
+    return acc
+  }, priceList[0])
 
   return lowestPrice.price
 }
@@ -130,8 +123,10 @@ export const getEmailNotifType = (
 }
 
 export const formatNumber = (num: number = 0) => {
-  return num.toLocaleString(undefined, {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0
+  const convertCentsToReal = num / 100
+
+  return convertCentsToReal.toLocaleString('pt-BR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   })
 }

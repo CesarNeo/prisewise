@@ -1,4 +1,9 @@
-import { extractCurrency, extractDescription, extractPrice } from '@/utils'
+import {
+  extractCurrency,
+  extractDescription,
+  extractPrice,
+  extractStars
+} from '@/utils'
 import axios from 'axios'
 import * as cheerio from 'cheerio'
 
@@ -28,8 +33,9 @@ export async function scrapeAmazonProduct(url: string) {
       $('.priceToPay span.a-price-whole'),
       $('a.size.base.a-color-price'),
       $('.a-button-selected .a-color-base'),
-      $('.a-price.a-text-price')
+      $('.a-price.a-text-price .a-offscreen')
     )
+
     const originalPrice = extractPrice(
       $('#priceblock_ourprice'),
       $('.a-price.a-text-price span.a-offscreen'),
@@ -48,6 +54,7 @@ export async function scrapeAmazonProduct(url: string) {
     const currency = extractCurrency($('.a-price-symbol'))
     const discountRate = $('.savingsPercentage').text().replace(/[-%]/g, '')
     const description = extractDescription($)
+    const stars = extractStars($)
 
     const data = {
       url,
@@ -60,7 +67,7 @@ export async function scrapeAmazonProduct(url: string) {
       discountRate: Number(discountRate),
       category: 'category',
       reviewsCount: 0,
-      stars: 0,
+      stars: Number(stars),
       isOutOfStock: outOfStock,
       description,
       lowestPrice: Number(currentPrice) || Number(originalPrice),
@@ -70,6 +77,6 @@ export async function scrapeAmazonProduct(url: string) {
 
     return data
   } catch (error: any) {
-    throw new Error(`Failed to scrape Amazon product: ${error.message}`)
+    throw new Error(`Falha ao analisar o produto da Amazon: ${error.message}`)
   }
 }

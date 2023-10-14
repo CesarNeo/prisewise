@@ -2,25 +2,30 @@
 
 import { scrapeAndStoreProduct } from '@/lib/actions'
 import { isValidAmazonProductURL } from '@/utils'
-import { FormEvent, useState } from 'react'
+import { ElementRef, FormEvent, useRef, useState } from 'react'
 
 function Searchbar() {
-  const [searchPrompt, setSearchPrompt] = useState('')
+  const searchPromptRef = useRef<ElementRef<'input'>>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    const searchPrompt = searchPromptRef.current?.value
+
+    if (!searchPrompt) return
 
     const isValidLink = isValidAmazonProductURL(searchPrompt)
 
     if (!isValidLink) {
-      return alert('Please provide a valid Amazon product link')
+      return alert('Por favor, forneça um link de produto Amazon válido')
     }
 
     try {
       setIsLoading(true)
 
-      const product = await scrapeAndStoreProduct(searchPrompt)
+      await scrapeAndStoreProduct(searchPrompt)
+
+      setIsLoading(false)
     } catch (error) {
       console.error(error)
     } finally {
@@ -32,18 +37,13 @@ function Searchbar() {
     <form className="flex flex-wrap gap-4 mt-12" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Enter product link"
+        placeholder="Cole o link do produto aqui, apenas produtos Amazon"
         className="searchbar-input"
-        onChange={({ target: { value } }) => setSearchPrompt(value)}
-        value={searchPrompt}
+        ref={searchPromptRef}
       />
 
-      <button
-        type="submit"
-        className="searchbar-btn"
-        disabled={searchPrompt === ''}
-      >
-        {isLoading ? 'Searching...' : 'Search'}
+      <button type="submit" className="searchbar-btn" disabled={isLoading}>
+        {isLoading ? 'Analisando...' : 'Buscar'}
       </button>
     </form>
   )
