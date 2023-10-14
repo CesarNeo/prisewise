@@ -37,19 +37,19 @@ export async function generateEmailBody(
 
   switch (type) {
     case NOTIFICATION.WELCOME:
-      subject = `Welcome to Price Tracking for ${shortenedTitle}`
+      subject = `Bem-vindo ao Rastreamento de Preços para ${shortenedTitle}`
       body = `
         <div>
-          <h2>Welcome to PriceWise 🚀</h2>
-          <p>You are now tracking ${product.title}.</p>
-          <p>Here's an example of how you'll receive updates:</p>
+          <h2>Bem-vindo ao PriceWise 🚀</h2>
+          <p>Agora você está rastreando ${product.title}.</p>
+          <p>Aqui está um exemplo de como você receberá atualizações:</p>
           <div style="border: 1px solid #ccc; padding: 10px; background-color: #f8f8f8;">
-            <h3>${product.title} is back in stock!</h3>
-            <p>We're excited to let you know that ${product.title} is now back in stock.</p>
-            <p>Don't miss out - <a href="${product.url}" target="_blank" rel="noopener noreferrer">buy it now</a>!</p>
-            <img src="https://i.ibb.co/pwFBRMC/Screenshot-2023-09-26-at-1-47-50-AM.png" alt="Product Image" style="max-width: 100%;" />
+            <h3>${product.title} está de volta ao estoque!</h3>
+            <p>Estamos animados em informar que ${product.title} agora está de volta ao estoque.</p>
+            <p>Não perca - <a href="${product.url}" target="_blank" rel="noopener noreferrer">compre agora</a>!</p>
+            <img src="https://i.ibb.co/pwFBRMC/Screenshot-2023-09-26-at-1-47-50-AM.png" alt="Imagem do Produto" style="max-width: 100%;" />
           </div>
-          <p>Stay tuned for more updates on ${product.title} and other products you're tracking.</p>
+          <p>Fique atento para mais atualizações sobre ${product.title} e outros produtos que você está rastreando.</p>
         </div>
       `
       break

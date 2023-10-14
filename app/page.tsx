@@ -5,7 +5,9 @@ import { getAllProducts } from '@/lib/actions'
 import Image from 'next/image'
 
 async function Home() {
-  const products = await getAllProducts()
+  const products = await getAllProducts({
+    limit: 8
+  })
 
   return (
     <>

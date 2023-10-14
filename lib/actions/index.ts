@@ -49,6 +49,7 @@ export async function scrapeAndStoreProduct(productURL: string) {
     )
 
     revalidatePath(`/products/${newProduct._id}`)
+    return JSON.parse(JSON.stringify(newProduct))
   } catch (error: any) {
     throw new Error(`Falha ao criar/atualizar produto: ${error.message}`)
   }
@@ -70,11 +71,16 @@ export async function getProductById(
   }
 }
 
-export async function getAllProducts(): Promise<ProductType[] | undefined> {
+type GetAllProductsProps = {
+  limit?: number
+}
+
+export async function getAllProducts({
+  limit = 0
+}: GetAllProductsProps): Promise<ProductType[] | undefined> {
   try {
     connectToDatabase()
-
-    const products = await Product.find()
+    const products = await Product.find().sort({ _id: -1 }).limit(limit)
 
     return products
   } catch (error) {
@@ -94,7 +100,9 @@ export async function getSimilarProducts(
 
     const similarProducts = await Product.find({
       _id: { $ne: productId }
-    }).limit(3)
+    })
+      .limit(3)
+      .sort({ _id: -1 })
 
     return similarProducts
   } catch (error) {

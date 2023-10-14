@@ -130,7 +130,7 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                   />
 
                   <p className="text-sm text-black/50 font-semibold">
-                    {product.reviewsCount} comentários
+                    {product.reviewsCount} avaliações
                   </p>
                 </div>
               </div>

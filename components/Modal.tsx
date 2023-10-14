@@ -139,7 +139,7 @@ function Modal({ productId }: Props) {
                       className="dialog-btn"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Enviando...' : 'Acompanhar'}
+                      {isSubmitting ? 'Enviando...' : 'Enviar'}
                     </button>
                   </form>
                 </div>
