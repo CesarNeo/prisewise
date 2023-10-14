@@ -18,6 +18,10 @@ function Searchbar() {
 
     const isValidLink = isValidAmazonProductURL(searchPrompt)
 
+    if (typeof isValidLink === 'string') {
+      return alert(isValidLink)
+    }
+
     if (!isValidLink) {
       return alert('Por favor, forneça um link de produto Amazon válido')
     }

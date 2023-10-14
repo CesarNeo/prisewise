@@ -14,6 +14,10 @@ export function isValidAmazonProductURL(url: string) {
     const parsedURL = new URL(url)
     const { hostname } = parsedURL
 
+    if (!hostname.includes('amazon.com.br')) {
+      return 'Por favor, forneça um link de produto Amazon do Brasil'
+    }
+
     if (
       hostname.includes('amazon.com') ||
       hostname.includes('amazon.') ||
