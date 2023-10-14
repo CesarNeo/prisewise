@@ -32,6 +32,8 @@ async function ProductDetailsPage({ params: { id } }: Props) {
             width={580}
             height={400}
             className="mx-auto"
+            priority
+            sizes="400px"
           />
         </div>
 
@@ -45,9 +47,9 @@ async function ProductDetailsPage({ params: { id } }: Props) {
               <Link
                 href={product.url}
                 target="_blank"
-                className="text-base text-black/50"
+                className="text-base text-black/50 w-fit"
               >
-                Visit Product
+                Visitar Produto
               </Link>
             </div>
 
@@ -58,6 +60,8 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                   alt="Heart"
                   width={20}
                   height={20}
+                  className="h-5 w-5"
+                  sizes="20px"
                 />
 
                 <p className="text-base font-semibold text-[#d46f77]">
@@ -71,6 +75,8 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                   alt="Bookmark"
                   width={20}
                   height={20}
+                  className="h-5 w-5"
+                  sizes="20px"
                 />
               </div>
 
@@ -80,6 +86,8 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                   alt="Share"
                   width={20}
                   height={20}
+                  className="h-5 w-5"
+                  sizes="20px"
                 />
               </div>
             </div>
@@ -102,6 +110,8 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                     alt="Star"
                     width={16}
                     height={16}
+                    className="h-4 w-4"
+                    sizes="16px"
                   />
 
                   <p className="text-sm text-primary-orange font-semibold">
@@ -115,24 +125,21 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                     alt="Comment"
                     width={16}
                     height={16}
+                    className="h-4 w-4"
+                    sizes="16px"
                   />
 
                   <p className="text-sm text-black/50 font-semibold">
-                    {product.reviewsCount} Reviews
+                    {product.reviewsCount} comentários
                   </p>
                 </div>
               </div>
-
-              <p className="text-sm text-black/50">
-                <span className="text-primary-green font-semibold">93% </span>{' '}
-                of buyers have recommended this product!
-              </p>
             </div>
           </div>
           <div className="my-7 flex flex-col gap-5">
             <div className="flex flex-wrap gap-5">
               <PriceInfoCard
-                title="Current Price"
+                title="Preço Atual"
                 iconSrc="/assets/icons/price-tag.svg"
                 value={`${product.currency} ${formatNumber(
                   product.currentPrice
@@ -140,7 +147,7 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                 borderColor="#b6dbff"
               />
               <PriceInfoCard
-                title="Average Price"
+                title="Preço Médio"
                 iconSrc="/assets/icons/chart.svg"
                 value={`${product.currency} ${formatNumber(
                   product.averagePrice
@@ -148,7 +155,7 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                 borderColor="#9370DB"
               />
               <PriceInfoCard
-                title="Highest Price"
+                title="Preço Máximo"
                 iconSrc="/assets/icons/arrow-up.svg"
                 value={`${product.currency} ${formatNumber(
                   product.highestPrice
@@ -156,7 +163,7 @@ async function ProductDetailsPage({ params: { id } }: Props) {
                 borderColor="#FF6347"
               />
               <PriceInfoCard
-                title="Lowest Price"
+                title="Preço Mínimo"
                 iconSrc="/assets/icons/arrow-down.svg"
                 value={`${product.currency} ${formatNumber(
                   product.lowestPrice
@@ -173,7 +180,7 @@ async function ProductDetailsPage({ params: { id } }: Props) {
       <div className="flex flex-col gap-16">
         <div className="flex flex-col gap-5">
           <h3 className="text-2xl text-secondary font-semibold">
-            Product Description
+            Descrição do Produto
           </h3>
 
           <div className="flex flex-col gap-4">
@@ -185,14 +192,14 @@ async function ProductDetailsPage({ params: { id } }: Props) {
           <Image src="/assets/icons/bag.svg" alt="Bag" width={22} height={22} />
 
           <Link href="/" className="text-base text-white">
-            Buy Now
+            Comprar Agora
           </Link>
         </button>
       </div>
 
       {similarProducts && similarProducts.length > 0 && (
         <div className="py-14 flex flex-col gap-2 w-full">
-          <p className="section-text">Similar Products</p>
+          <p className="section-text">Produtos Semelhantes</p>
 
           <div className="flex flex-wrap gap-10 mt-7 w-full">
             {similarProducts.map(product => (

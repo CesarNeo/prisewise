@@ -23,9 +23,10 @@ function Navbar() {
         <Link href="/" className="flex items-center gap-1">
           <Image
             src="/assets/icons/logo.svg"
-            width={27}
-            height={27}
+            width={28}
+            height={28}
             alt="logo"
+            className="h-7 w-7"
           />
 
           <p className="nav-logo">
@@ -41,7 +42,7 @@ function Navbar() {
               width={28}
               height={28}
               alt={alt}
-              className="object-contain"
+              className="object-contain h-7 w-7 "
             />
           ))}
         </div>

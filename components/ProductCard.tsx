@@ -1,4 +1,5 @@
 import { Product } from '@/types'
+import { formatNumber } from '@/utils'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -27,7 +28,7 @@ function ProductCard({ product }: Props) {
 
           <p className="text-lg text-black font-semibold">
             <span>{product?.currency}</span>
-            <span>{product?.currentPrice}</span>
+            <span>{formatNumber(product?.currentPrice)}</span>
           </p>
         </div>
       </div>

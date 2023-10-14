@@ -41,7 +41,7 @@ function Modal({ productId }: Props) {
   return (
     <>
       <button type="button" className="btn" onClick={handleOpenModal}>
-        Track
+        Acompanhar Preço
       </button>
 
       <Transition appear show={isOpen} as={Fragment}>
@@ -100,12 +100,12 @@ function Modal({ productId }: Props) {
                   </div>
 
                   <h4 className="dialog-head_text">
-                    Stay updated with product pricing alerts right in your
-                    inbox!
+                    Fique atualizado com alertas de preços de produtos direto na
+                    sua caixa de entrada!
                   </h4>
 
                   <p className="text-sm text-gray-600 mt-2">
-                    Never miss a bargain again with our timely alerts!
+                    Nunca mais perca uma promoção com nossos alertas!
                   </p>
 
                   <form className="flex flex-col mt-5" onSubmit={handleSubmit}>
@@ -113,7 +113,7 @@ function Modal({ productId }: Props) {
                       htmlFor="email"
                       className="text-sm font-medium text-gray-700"
                     >
-                      Email address
+                      Endereço de e-mail
                     </label>
 
                     <div className="dialog-input_container">
@@ -128,7 +128,7 @@ function Modal({ productId }: Props) {
                         ref={inputEmailRef}
                         type="email"
                         id="email"
-                        placeholder="Enter your email address"
+                        placeholder="Digite seu endereço de e-mail"
                         required
                         className="dialog-input"
                       />
@@ -139,7 +139,7 @@ function Modal({ productId }: Props) {
                       className="dialog-btn"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Submitting...' : 'Track'}
+                      {isSubmitting ? 'Enviando...' : 'Acompanhar'}
                     </button>
                   </form>
                 </div>

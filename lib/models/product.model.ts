@@ -39,6 +39,7 @@ const productSchema = new mongoose.Schema(
         }
       }
     ],
+    stars: { type: Number },
     lowestPrice: { type: Number },
     highestPrice: { type: Number },
     averagePrice: { type: Number },
